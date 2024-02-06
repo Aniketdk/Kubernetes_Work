@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual  
+  hostPath:
+    path: /home/Aniket/pv  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgresdb-pv-claim
+  namespace: client02
+spec:
+  accessModes:
+    - ReadWriteOnce  # Sets read and write access
+  resources:
+    requests:
+      storage: 5Gi  # Sets volume size
+  

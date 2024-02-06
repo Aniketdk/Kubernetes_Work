@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: session-db
+  namespace: client02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: session-db
+  template:
+    metadata:
+      labels:
+        app: session-db
+    spec:
+      containers:
+      - name: redis-container
+        image: redis:latest
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: 10m
+        ports:
+        - containerPort: 6379
+        env:
+
+        - name: REDIS_USER_NAME
+          value: admin
+        - name: REDIS_USER_PASS
+          value: BWwxHMEYroxbOzW7ZRXgI4lzKIMQ39pE
+        
+       
+
+
+       
+        

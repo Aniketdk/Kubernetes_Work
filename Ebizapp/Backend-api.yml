@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-ebizapp-api
+  namespace: client02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-ebizapp
+  template:
+    metadata:
+      labels:
+        app: backend-ebizapp
+    spec:
+      containers:
+      - name: backend-ebizapp
+        image: sushantjadhav/ebizapi:latest
+        ports:
+          - containerPort: 80
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: 250m
+        env:
+            - name: PRODUCTION
+              value: "True"
+            - name: SQL_DB_HOST
+              value: 10.1.0.232
+            - name: SQL_DB_NAME
+              value: ros_gql_db
+            - name: SQL_DB_USERNAME
+              value: postgres
+            - name: SQL_DB_PASSWORD
+              value: Rushi0321 
+            - name: REDIS_HOSTNAME
+              value: 10.1.0.227
+            - name: REDIS_USER_NAME
+              value: red-clg4o5l8td7s73bebit0
+            - name: REDIS_USER_NAME
+              value: BWwxHMEYroxbOzW7ZRXgI4lzKIMQ39pE
+            - name: OTP_SECRET_KEY
+              value: base32secret3232
+           
+           
+        volumeMounts:
+             - name: postgres-pv-volume-mount
+               mountPath: /var/lib/postgresql/data
+             
+      volumes:
+        - name: postgres-pv-volume-mount
+          persistentVolumeClaim:
+            claimName: postgresdb-pv-claim
+      restartPolicy: Always
+        
+   

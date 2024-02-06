@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ebizapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: frontend-svc
+    http:
+      paths:
+      - path: /frontend-ebizapp
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-svc
+            port:
+              number: 3000
+      - path: /backend-api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-svc
+            port:
+              number: 80

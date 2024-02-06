@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-ebizapp
+  namespace: client02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-ebizapp
+  template:
+    metadata:
+      labels:
+        app: frontend-ebizapp
+    spec:
+      containers:
+      - name: frontend-ebizapp
+        image: sushantjadhav/ebizapp:v1
+        resources:
+          limits:
+            memory: 3Gi
+            cpu: 100m
+        ports:
+          - containerPort: 3000  
+            
+        env:
+            
+            - name: NEXT_PUBLIC_API_BASE_URL
+              value: "https://milk-demo-54a1.onrender.com"
+
+                                 
+
+     
+        
+
+        

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: client02
+data:
+  frontend-config-config.conf: |
+   
+    upstream redis-svc {
+      server redis-svc;
+    }
+    server {
+      listen 6379;
+      location localhost {
+        proxy_pass http://session-db;
+      }
+    }
+    upstream postgres {
+      server postgres-svc;
+    }
+    server {
+      listen 5432;
+      location localhost {
+        proxy_pass http://postgres;
+      }
+    }
